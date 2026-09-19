@@ -1107,11 +1107,22 @@ document.addEventListener('DOMContentLoaded', iniciarMusicaAlEntrar);
 /* Liberación: próximo 19 de septiembre a las 15:00 (hora local del dispositivo) */
 function getTarget(){
   const now = new Date();
-  let year = now.getFullYear();
-  let target = new Date(year,8,19,15,0,0);
-  if(target <= now) target = new Date(year+1,8,19,15,0,0);
+  const year = now.getFullYear();
+
+  // Objetivo: 19 de septiembre a las 15:00, hora local
+  let target = new Date(year, 8, 19, 15, 0, 0);
+
+  // Solo pasa al siguiente año cuando YA terminó el 19 de septiembre.
+  if (
+    now.getMonth() > 8 ||
+    (now.getMonth() === 8 && now.getDate() > 19)
+  ) {
+    target = new Date(year + 1, 8, 19, 15, 0, 0);
+  }
+
   return target;
 }
+
 let liberado = false;
 
 function actualizarContador(){
