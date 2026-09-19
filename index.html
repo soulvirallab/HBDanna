@@ -1102,7 +1102,19 @@ function iniciarMusicaAlEntrar() {
 
 // Ejecutar la función inmediatamente al cargar la página
 document.addEventListener('DOMContentLoaded', iniciarMusicaAlEntrar);
+function reproducirMusica(){
+  if(!musicAudio) return;
 
+  musicAudio.volume = 1.0;
+
+  const promesa = musicAudio.play();
+
+  if(promesa !== undefined){
+    promesa.catch((error) => {
+      console.warn('La reproducción automática fue bloqueada:', error);
+    });
+  }
+}
 
 /* Liberación: próximo 19 de septiembre a las 15:00 (hora local del dispositivo) */
 function getTarget(){
